@@ -1,0 +1,71 @@
+{
+  "name": "fs-resolver-fs",
+  "version": "0.0.0-semantic-release",
+  "description": "resolves file urls",
+  "main": "dist/FileScheme.js",
+  "module": "src/FileScheme.js",
+  "scripts": {
+    "cover": "nyc npm test",
+    "test": "mocha tests/*_test.js",
+    "docs": "jsdoc2md -l off -t doc/README.hbs -f src/*.js >README.md",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "prepublish": "rollup --output=dist/FileScheme.js -c -- src/FileScheme.js",
+    "pretest": "npm run prepublish",
+    "posttest": "markdown-doctest",
+    "precover": "npm run prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
+  },
+  "keywords": [
+    "url",
+    "resolver",
+    "fs-resolver-fs"
+  ],
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/arlac77/fs-resolver-fs/issues"
+  },
+  "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cz-conventional-changelog": "^1.2.0",
+    "jsdoc-to-markdown": "^2.0.1",
+    "markdown-doctest": "^0.9.1",
+    "mocha": "^3.2.0",
+    "rollup": "^0.41.4",
+    "semantic-release": "^6.3.6",
+    "nyc": "^10.1.2"
+  },
+  "dependencies": {
+    "btoa": "^1.1.2",
+    "http-proxy-agent": "^1.0.0",
+    "https-proxy-agent": "^1.0.0",
+    "node-fetch": "^1.6.3",
+    "url-resolver-fs": "^1.3.0"
+  },
+  "engines": {
+    "node": ">=6.9.4"
+  },
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "nyc": {
+    "include": [
+      "dist/**/*.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "report-dir": "./coverage"
+  }
+}
