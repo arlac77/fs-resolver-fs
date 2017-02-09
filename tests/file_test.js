@@ -8,9 +8,7 @@ const chai = require('chai'),
   should = chai.should(),
   path = require('path'),
   fs = require('fs'),
-  {
-    FileScheme
-  } = require('../dist/FileScheme');
+    FileScheme = require('../dist/FileScheme');
 
 describe('file', () => {
   const scheme = new FileScheme();
@@ -42,7 +40,6 @@ describe('file', () => {
     const aDir = path.join(__dirname);
     return scheme.list('file://' + aDir).then(files => {
       assert.isAtLeast(files.indexOf('file_test.js'), 0);
-      assert.isAtLeast(files.indexOf('resolver_test.js'), 0);
     });
   });
 

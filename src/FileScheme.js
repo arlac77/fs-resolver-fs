@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 
-import URLScheme from 'url-resolver-fs';
+import { URLScheme } from 'url-resolver-fs';
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
