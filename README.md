@@ -16,6 +16,8 @@
 
 fs-resolver-fs
 -------------------
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/arlac77/fs-resolver-fs.svg)](https://greenkeeper.io/)
 resolves file urls
 
 # API Reference
