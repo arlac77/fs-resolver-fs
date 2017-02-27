@@ -43,7 +43,7 @@
     "http-proxy-agent": "^1.0.0",
     "https-proxy-agent": "^1.0.0",
     "node-fetch": "^1.6.3",
-    "url-resolver-fs": "^2.0.1"
+    "url-resolver-fs": "^2.1.0"
   },
   "engines": {
     "node": ">=6.9.4"
