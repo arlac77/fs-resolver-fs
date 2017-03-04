@@ -39,10 +39,6 @@
     "semantic-release": "^6.3.6"
   },
   "dependencies": {
-    "btoa": "^1.1.2",
-    "http-proxy-agent": "^1.0.0",
-    "https-proxy-agent": "^1.0.0",
-    "node-fetch": "^1.6.3",
     "url-resolver-fs": "^2.1.0"
   },
   "engines": {
