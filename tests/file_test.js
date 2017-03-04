@@ -21,7 +21,10 @@ describe('file', () => {
 
   it('can stat', () => {
     const aFile = path.join(__dirname, 'file_test.js');
-    return scheme.stat('file://' + aFile).then(s => assert.isDefined(s));
+    return scheme.stat('file://' + aFile).then(s => {
+      assert.equal(s.size,1414);
+      assert.isDefined(s); }
+    );
   });
 
   it('can delete', (done) => {
