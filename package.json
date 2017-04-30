@@ -39,7 +39,7 @@
     "semantic-release": "^6.3.6"
   },
   "dependencies": {
-    "url-resolver-fs": "^2.2.2"
+    "url-resolver-fs": "^3.0.0"
   },
   "engines": {
     "node": ">=7.9.0"
