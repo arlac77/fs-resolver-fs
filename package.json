@@ -5,14 +5,14 @@
   "main": "dist/FileScheme.js",
   "module": "src/FileScheme.js",
   "scripts": {
-    "cover": "nyc npm test",
-    "test": "mocha tests/*_test.js",
+    "cover": "nyc ava",
+    "test": "ava",
     "docs": "jsdoc2md -l off -t doc/README.hbs -f src/*.js >README.md",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "prepublish": "rollup --output=dist/FileScheme.js -c -- src/FileScheme.js",
-    "pretest": "npm run prepublish",
+    "pretest": "rollup -c rollup.config.test.js",
     "posttest": "markdown-doctest",
-    "precover": "npm run prepublish"
+    "precover": "rollup -c rollup.config.test.js"
   },
   "repository": {
     "type": "git",
@@ -29,14 +29,16 @@
   },
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
     "cz-conventional-changelog": "^2.0.0",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
-    "mocha": "^3.3.0",
     "nyc": "^10.3.0",
     "rollup": "^0.41.6",
-    "semantic-release": "^6.3.6"
+    "semantic-release": "^6.3.6",
+    "ava": "^0.19.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-multi-entry": "^2.0.1"
   },
   "dependencies": {
     "url-resolver-fs": "^3.0.0"
@@ -66,7 +68,15 @@
   },
   "template": {
     "repository": {
-      "url": "https://github.com/Kronos-Tools/npm-package-template.git"
+      "url": "https://github.com/arlac77/npm-package-template.git"
     }
+  },
+  "ava": {
+    "files": [
+      "build/test-bundle.js"
+    ],
+    "require": [
+      "babel-register"
+    ]
   }
 }
