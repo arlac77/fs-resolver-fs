@@ -4,7 +4,10 @@
 
 const fs = require('fs');
 
-import { URLScheme } from 'url-resolver-fs';
+import { 
+  URLScheme
+}
+from 'url-resolver-fs';
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
@@ -61,7 +64,9 @@ export default class FileScheme extends URLScheme {
     if (m) {
       return new Promise((fullfill, reject) => {
         stream.pipe(fs.createWriteStream(m[1], options));
-        fullfill();
+        stream.once('end', () =>
+          fullfill()
+        );
       });
     }
 

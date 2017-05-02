@@ -2,12 +2,12 @@
 /* jslint node: true, esnext: true */
 'use strict';
 
+import test from 'ava';
+
 const path = require('path'),
   fs = require('fs');
 
 import FileScheme from '../src/FileScheme';
-
-import test from 'ava';
 
 test('file scheme has name', t => {
   const scheme = new FileScheme();
@@ -25,7 +25,15 @@ test('can stat', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, '..', 'file_test.js');
   const stat = await scheme.stat('file://' + aFile);
-  t.is(stat.size, 1540);
+  t.is(stat.size, 1842);
+});
+
+test('can put', async t => {
+  const scheme = new FileScheme();
+  const aFile = path.join(__dirname, 'file2.tmp');
+  await scheme.put('file://' + aFile, fs.createReadStream(path.join(__dirname, '..', 'file_test.js')));
+  const stat = await scheme.stat('file://' + aFile);
+  t.is(stat.size, 1842);
 });
 
 test.cb('can delete', t => {
