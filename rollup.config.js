@@ -3,6 +3,8 @@
 
 export default {
   format: 'cjs',
-  plugins: [],
+  plugins: [
+    'transform-async-generator-functions'
+  ],
   external: ['url-resolver-fs']
 };

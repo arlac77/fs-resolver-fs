@@ -30,13 +30,14 @@
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "devDependencies": {
     "cz-conventional-changelog": "^2.0.0",
+    "semantic-release": "^6.3.6",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
     "nyc": "^10.3.0",
-    "rollup": "^0.41.6",
-    "semantic-release": "^6.3.6",
     "ava": "^0.19.1",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-multi-entry": "^2.0.1"
   },
@@ -46,12 +47,10 @@
   "engines": {
     "node": ">=7.9.0"
   },
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
+  "contributors": [{
+    "name": "Markus Felten",
+    "email": "markus.felten@gmx.de"
+  }],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
@@ -59,7 +58,7 @@
   },
   "nyc": {
     "include": [
-      "dist/**/*.js"
+      "tests/build/*.js"
     ],
     "reporter": [
       "lcov"
@@ -73,7 +72,7 @@
   },
   "ava": {
     "files": [
-      "build/test-bundle.js"
+      "tests/build/bundle.js"
     ],
     "require": [
       "babel-register"
