@@ -2,51 +2,59 @@
 /* jslint node: true, esnext: true */
 'use strict';
 
-const chai = require('chai'),
-  assert = chai.assert,
-  expect = chai.expect,
-  should = chai.should(),
-  path = require('path'),
-  fs = require('fs'),
-    FileScheme = require('../dist/FileScheme');
+const path = require('path'),
+  fs = require('fs');
 
-describe('file', () => {
+import FileScheme from '../src/FileScheme';
+
+import test from 'ava';
+
+test('file scheme has name', t => {
   const scheme = new FileScheme();
-  it('has name', () => assert.equal(scheme.name, 'file'));
+  t.deepEqual(scheme.name, 'file');
+});
 
-  it('can get', () => {
-    const aFile = path.join(__dirname, 'file_test.js');
-    return scheme.get('file://' + aFile).then(s => assert.isDefined(s));
+test('can get', async t => {
+  const scheme = new FileScheme();
+  const aFile = path.join(__dirname, '..', 'file_test.js');
+  const content = await scheme.get('file://' + aFile);
+  t.true(content !== undefined);
+});
+
+test('can stat', async t => {
+  const scheme = new FileScheme();
+  const aFile = path.join(__dirname, '..', 'file_test.js');
+  const stat = await scheme.stat('file://' + aFile);
+  t.is(stat.size, 1540);
+});
+
+test.cb('can delete', t => {
+  const scheme = new FileScheme();
+  const aFile = path.join(__dirname, 'file.tmp');
+  fs.writeFileSync(aFile, 'someData');
+
+  scheme.delete('file://' + aFile).then(() => {
+    fs.stat(aFile, (error, stat) => {
+      t.end(error ? undefined : 'not deleted');
+    })
   });
 
-  it('can stat', () => {
-    const aFile = path.join(__dirname, 'file_test.js');
-    return scheme.stat('file://' + aFile).then(s => {
-      assert.equal(s.size,1414);
-      assert.isDefined(s); }
-    );
-  });
+  return undefined;
+});
 
-  it('can delete', (done) => {
-    const aFile = path.join(__dirname, 'file.tmp');
-    fs.writeFileSync(aFile, 'someData');
-    scheme.delete('file://' + aFile).then(s =>
-      fs.stat(aFile, (err, stat) => {
-        if (err) {
-          done();
-        }
-      })
-    );
-  });
+test('can list', async t => {
+  const scheme = new FileScheme();
+  const aDir = path.join(__dirname);
+  const list = await scheme.list('file://' + aDir);
+  t.deepEqual(list[0], 'bundle.js');
+});
 
-  it('can list', () => {
-    const aDir = path.join(__dirname);
-    return scheme.list('file://' + aDir).then(files => {
-      assert.isAtLeast(files.indexOf('file_test.js'), 0);
-    });
-  });
+test('list error', async t => {
+  function fn() {
+    const scheme = new FileScheme();
+    return scheme.list('file://unknown');
+  };
 
-  it('list error', () => {
-    return scheme.list('file://unknown').then(files => assert.ok(undefined)).catch(reject => assert.ok(reject));
-  });
+  const error = await t.throws(fn());
+  t.is(error.message, "ENOENT: no such file or directory, scandir \'unknown\'");
 });
