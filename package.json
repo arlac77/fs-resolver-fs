@@ -7,7 +7,7 @@
   "scripts": {
     "cover": "nyc ava",
     "test": "ava",
-    "docs": "jsdoc2md -l off -t doc/README.hbs -f src/*.js >README.md",
+    "docs": "jsdoc2md --configure doc/jsdoc.json -l off -t doc/README.hbs -f src/*.js >README.md",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "prepublish": "rollup --output=dist/FileScheme.js -c -- src/FileScheme.js",
     "pretest": "rollup -c rollup.config.test.js",
@@ -39,18 +39,21 @@
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-multi-entry": "^2.0.1"
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "jsdoc-babel": "^0.3.0"
   },
   "dependencies": {
     "url-resolver-fs": "^3.0.0"
   },
   "engines": {
-    "node": ">=7.9.0"
+    "node": ">=7.10.0"
   },
-  "contributors": [{
-    "name": "Markus Felten",
-    "email": "markus.felten@gmx.de"
-  }],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
