@@ -33,7 +33,7 @@
     "semantic-release": "^6.3.6",
     "jsdoc-to-markdown": "^3.0.0",
     "markdown-doctest": "^0.9.1",
-    "nyc": "^10.3.0",
+    "nyc": "^10.3.2",
     "ava": "^0.19.1",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
