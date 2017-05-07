@@ -1,13 +1,12 @@
-/* global describe, it, xit, before, after */
 /* jslint node: true, esnext: true */
 'use strict';
 
 import test from 'ava';
+import FileScheme from '../src/FileScheme';
 
 const path = require('path'),
   fs = require('fs');
 
-import FileScheme from '../src/FileScheme';
 
 test('file scheme has name', t => {
   const scheme = new FileScheme();
@@ -42,7 +41,7 @@ test.cb('can delete', t => {
   fs.writeFileSync(aFile, 'someData');
 
   scheme.delete('file://' + aFile).then(() => {
-    fs.stat(aFile, (error, stat) => {
+    fs.stat(aFile, (error) => {
       t.end(error ? undefined : 'not deleted');
     })
   });
@@ -74,5 +73,5 @@ test('list error', async t => {
   };
 
   const error = await t.throws(fn());
-  t.is(error.message, "ENOENT: no such file or directory, scandir \'unknown\'");
+  t.is(error.message, "ENOENT: no such file or directory, scandir 'unknown'");
 });
