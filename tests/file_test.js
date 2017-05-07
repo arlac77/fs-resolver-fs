@@ -7,7 +7,6 @@ import FileScheme from '../src/FileScheme';
 const path = require('path'),
   fs = require('fs');
 
-
 test('file scheme has name', t => {
   const scheme = new FileScheme();
   t.deepEqual(scheme.name, 'file');
@@ -41,9 +40,9 @@ test.cb('can delete', t => {
   fs.writeFileSync(aFile, 'someData');
 
   scheme.delete('file://' + aFile).then(() => {
-    fs.stat(aFile, (error) => {
+    fs.stat(aFile, error => {
       t.end(error ? undefined : 'not deleted');
-    })
+    });
   });
 
   return undefined;
@@ -56,7 +55,7 @@ test('can list', async t => {
   t.deepEqual(list[0], 'bundle.js');
 });
 
-/*
+/* TODO
 test('can list async iterator', async t => {
   const scheme = new FileScheme();
   const aDir = path.join(__dirname);
@@ -70,7 +69,7 @@ test('list error', async t => {
   function fn() {
     const scheme = new FileScheme();
     return scheme.list('file://unknown');
-  };
+  }
 
   const error = await t.throws(fn());
   t.is(error.message, "ENOENT: no such file or directory, scandir 'unknown'");
