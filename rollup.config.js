@@ -8,9 +8,7 @@ export default {
   plugins: [
     babel({
       babelrc: false,
-      presets: [
-        'stage-3'
-      ],
+      presets: ['es2015-rollup', 'stage-3'],
       exclude: 'node_modules/**'
     })
   ],
