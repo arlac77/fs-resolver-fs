@@ -96,6 +96,12 @@ export default class FileScheme extends URLScheme {
     return promisify(fs.readdir, url);
   }
 
+  /**
+   * List content of a directory
+   * @param {string} url of the a directory
+   * @param {object} [options] unused for now
+   * @returns {Iterator}
+   */
   async * _list(url, options) {
     const list = await promisify(fs.readdir, url);
     for (const entry of list) {

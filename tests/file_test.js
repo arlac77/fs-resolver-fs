@@ -55,11 +55,16 @@ test('can list', async t => {
   t.deepEqual(list[0], 'bundle.js');
 });
 
-/* TODO
+
+/*
 test('can list async iterator', async t => {
   const scheme = new FileScheme();
   const aDir = path.join(__dirname);
-  for await (const entry of scheme._list('file://' + aDir)) {
+  const list = scheme._list('file://' + aDir);
+
+  console.log(list);
+
+  for await (const entry of list) {
     t.deepEqual(entry, 'bundle.js');
   }
 });

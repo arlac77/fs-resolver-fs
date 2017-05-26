@@ -32,7 +32,7 @@ Creates a readable stream for the content of th file associated to a given file 
 | Param | Type | Description |
 | --- | --- | --- |
 | url | <code>string</code> | of the a file |
-| [options] | <code>object</code> &#124; <code>string</code> | passed as options to fs.createReadStream() |
+| [options] | <code>object</code> \| <code>string</code> | passed as options to fs.createReadStream() |
 
 
 * <a name="stat"></a>
@@ -63,7 +63,7 @@ Put content of a stream to a file associacted to a given file URL
 | --- | --- | --- |
 | url | <code>string</code> | of the a file |
 | stream | <code>Stream</code> | data source |
-| [options] | <code>object</code> &#124; <code>string</code> | passed as options to fs.createWriteStream() |
+| [options] | <code>object</code> \| <code>string</code> | passed as options to fs.createWriteStream() |
 
 
 * <a name="delete"></a>
@@ -88,6 +88,19 @@ List content of a directory
 **Kind**: global function  
 **Fulfil**: <code>string[]</code> - file names  
 **Reject**: <code>Error</code> - as delivered by fs.readdir()  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>string</code> | of the a directory |
+| [options] | <code>object</code> | unused for now |
+
+
+* <a name="_list"></a>
+
+## _list(url, [options]) ⇒ <code>Iterator</code>
+List content of a directory
+
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |

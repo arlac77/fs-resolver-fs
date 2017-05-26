@@ -30,8 +30,8 @@
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "devDependencies": {
     "ava": "^0.19.1",
-    "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-3": "^6.24.1",
     "cz-conventional-changelog": "^2.0.0",
     "jsdoc-babel": "^0.3.0",
     "jsdoc-to-markdown": "^3.0.0",
@@ -44,7 +44,7 @@
     "xo": "^0.19.0"
   },
   "dependencies": {
-    "url-resolver-fs": "^3.0.0"
+    "url-resolver-fs": "^3.0.1"
   },
   "engines": {
     "node": ">=7.10.0"
@@ -78,6 +78,11 @@
     "space": true
   },
   "ava": {
+    "babel": {
+      "presets": [
+        "stage-3"
+      ]
+    },
     "files": [
       "tests/build/bundle.js"
     ],
