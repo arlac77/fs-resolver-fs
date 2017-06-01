@@ -3,6 +3,9 @@
 'use strict';
 
 const fs = require('fs');
+const {
+  promisify
+} = require('util');
 
 import { 
   URLScheme
@@ -12,6 +15,10 @@ from 'url-resolver-fs';
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
 }
+
+const _stat = promisify(fs.stat);
+const _unlink = promisify(fs.unlink);
+const _readdir = promisify(fs.readdir);
 
 /**
  * URLScheme for file system access
@@ -47,7 +54,7 @@ export default class FileScheme extends URLScheme {
    * @reject {Error} - if url is not a file url or fs.stat() error
    */
   stat(url, options) {
-    return promisify(fs.stat, url);
+    return url2file(_stat, url);
   }
 
   /**
@@ -81,7 +88,7 @@ export default class FileScheme extends URLScheme {
    * @reject {Error} - as delivered by fs.unlink()
    */
   delete(url) {
-    return promisify(fs.unlink, url);
+    return url2file(_unlink, url);
   }
 
   /**
@@ -93,7 +100,7 @@ export default class FileScheme extends URLScheme {
    * @reject {Error} - as delivered by fs.readdir()
    */
   list(url, options) {
-    return promisify(fs.readdir, url);
+    return url2file(_readdir, url);
   }
 
   /**
@@ -103,25 +110,17 @@ export default class FileScheme extends URLScheme {
    * @returns {Iterator}
    */
   async * _list(url, options) {
-    const list = await promisify(fs.readdir, url);
+    const list = await url2file(_readdir, url);
     for (const entry of list) {
       yield entry;
     }
   }
 }
 
-function promisify(func, url) {
+function url2file(func, url) {
   const m = url.match(/^file:\/\/(.*)/);
   if (m) {
-    return new Promise((fullfill, reject) => {
-      func(m[1], (err, files) => {
-        if (err) {
-          reject(err);
-        } else {
-          fullfill(files);
-        }
-      });
-    });
+    return func(m[1]);
   }
   return invalidURLError(url);
 }
