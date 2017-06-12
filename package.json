@@ -48,15 +48,14 @@
   "engines": {
     "node": ">=8.1.0"
   },
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
+  "contributors": [{
+    "name": "Markus Felten",
+    "email": "markus.felten@gmx.de"
+  }],
   "nyc": {
     "include": [
-      "tests/build/*.js"
+      "build/test-bundle.js",
+      "src/**/*.js"
     ],
     "reporter": [
       "lcov"
@@ -78,7 +77,7 @@
       ]
     },
     "files": [
-      "tests/build/bundle.js"
+      "build/test-bundle.js"
     ],
     "require": [
       "babel-register"
