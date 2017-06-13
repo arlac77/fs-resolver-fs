@@ -1,6 +1,3 @@
-/* jslint node: true, esnext: true */
-'use strict';
-
 import test from 'ava';
 import FileScheme from '../src/FileScheme';
 
@@ -40,9 +37,9 @@ test.cb('can delete', t => {
   fs.writeFileSync(aFile, 'someData');
 
   scheme.delete('file://' + aFile).then(() => {
-    fs.stat(aFile, error => {
-      t.end(error ? undefined : 'not deleted');
-    });
+    fs.stat(aFile, error =>
+      t.end(error ? undefined : 'not deleted')
+    );
   });
 
   return undefined;
