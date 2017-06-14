@@ -49,7 +49,7 @@
     "url-resolver-fs": "^4.0.1"
   },
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=8.1.1"
   },
   "contributors": [
     {
