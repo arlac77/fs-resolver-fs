@@ -23,7 +23,7 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Scheme name if 'file'
-   * @return 'file'
+   * @return {string} 'file'
    */
   static get name() {
     return 'file';
