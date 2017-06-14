@@ -74,5 +74,5 @@ test('list error', async t => {
   }
 
   const error = await t.throws(fn());
-  t.is(error.message, "ENOENT: no such file or directory, scandir 'unknown'");
+  t.is(error.message, `ENOENT: no such file or directory, scandir 'unknown'`);
 });
