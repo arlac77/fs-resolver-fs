@@ -8,7 +8,6 @@ const {
   promisify
 } = require('util');
 
-
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
 }
@@ -22,6 +21,10 @@ const _readdir = promisify(fs.readdir);
  */
 export default class FileScheme extends URLScheme {
 
+  /**
+   * Scheme name if 'file'
+   * @return 'file'
+   */
   static get name() {
     return 'file';
   }
@@ -43,7 +46,7 @@ export default class FileScheme extends URLScheme {
   }
 
   /**
-   * Read stat of a file assiciacted to a given file URL
+   * Read stat of a file assiciated to a given file URL
    * @param {string} url of the a file
    * @param {object} [options] unused for now
    * @returns {Promise}
@@ -55,7 +58,7 @@ export default class FileScheme extends URLScheme {
   }
 
   /**
-   * Put content of a stream to a file associacted to a given file URL
+   * Put content of a stream to a file associated to a given file URL
    * @param {string} url of the a file
    * @param {Stream} stream data source
    * @param {object|string} [options] passed as options to fs.createWriteStream()
@@ -78,7 +81,7 @@ export default class FileScheme extends URLScheme {
   }
 
   /**
-   * Deletes the file assiciacted to a given file URL
+   * Deletes the file assiciated to a given file URL
    * @param {string} url of the a file
    * @returns {Promise}
    * @fulfil {undefined} - undefined
