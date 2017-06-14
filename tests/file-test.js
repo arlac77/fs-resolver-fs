@@ -1,8 +1,6 @@
 import test from 'ava';
 import FileScheme from '../src/FileScheme';
 
-//require("babel-polyfill");
-
 const path = require('path'),
   fs = require('fs');
 
