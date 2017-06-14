@@ -7,7 +7,7 @@ export default {
   plugins: [
     babel({
       babelrc: false,
-      presets: ['stage-3', 'es2015-rollup'],
+      presets: ['stage-3'],
       exclude: 'node_modules/**'
     }),
     multiEntry()

@@ -1,6 +1,8 @@
 import test from 'ava';
 import FileScheme from '../src/FileScheme';
 
+//require("babel-polyfill");
+
 const path = require('path'),
   fs = require('fs');
 
@@ -11,14 +13,14 @@ test('file scheme has name', t => {
 
 test('can get', async t => {
   const scheme = new FileScheme();
-  const aFile = path.join(__dirname, '..', 'file_test.js');
+  const aFile = path.join(__dirname, '..', 'tests', 'file-test.js');
   const content = await scheme.get('file://' + aFile);
   t.true(content !== undefined);
 });
 
 test('can stat', async t => {
   const scheme = new FileScheme();
-  const aFile = path.join(__dirname, '..', 'file_test.js');
+  const aFile = path.join(__dirname, '..', 'tests', 'file-test.js');
   const stat = await scheme.stat('file://' + aFile);
   t.true(stat.size > 1000 && stat.size < 10000);
 });
@@ -26,7 +28,7 @@ test('can stat', async t => {
 test('can put', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, 'file2.tmp');
-  await scheme.put('file://' + aFile, fs.createReadStream(path.join(__dirname, '..', 'file_test.js')));
+  await scheme.put('file://' + aFile, fs.createReadStream(path.join(__dirname, '..', 'tests', 'file-test.js')));
   const stat = await scheme.stat('file://' + aFile);
   t.true(stat.size > 1000 && stat.size < 10000);
 });
@@ -48,10 +50,10 @@ test.cb('can delete', t => {
 test('can list', async t => {
   const scheme = new FileScheme();
   const aDir = path.join(__dirname);
+  console.log(aDir);
   const list = await scheme.list('file://' + aDir);
-  t.deepEqual(list[0], 'bundle.js');
+  t.true(list.includes('test-bundle.js'));
 });
-
 
 /*
 test('can list async iterator', async t => {
