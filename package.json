@@ -2,8 +2,8 @@
   "name": "fs-resolver-fs",
   "version": "0.0.0-semantic-release",
   "description": "resolves file urls",
-  "main": "dist/FileScheme.js",
-  "module": "src/FileScheme.js",
+  "main": "dist/file-scheme.js",
+  "module": "src/file-scheme.js",
   "scripts": {
     "cover": "nyc ava",
     "test": "ava",
@@ -12,17 +12,13 @@
     "pretest": "rollup -c tests/rollup.config.js",
     "posttest": "npm run prepare && markdown-doctest",
     "precover": "rollup -c tests/rollup.config.js",
-    "prepare": "rollup -c -- src/FileScheme.js"
+    "prepare": "rollup -c -- src/file-scheme.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
   },
-  "keywords": [
-    "url",
-    "resolver",
-    "fs-resolver-fs"
-  ],
+  "keywords": ["url", "resolver", "fs-resolver-fs"],
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/arlac77/fs-resolver-fs/issues"
@@ -54,13 +50,8 @@
     }
   ],
   "nyc": {
-    "include": [
-      "build/test-bundle.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/test-bundle.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "template": {
@@ -73,15 +64,9 @@
   },
   "ava": {
     "babel": {
-      "presets": [
-        "stage-3"
-      ]
+      "presets": ["stage-3"]
     },
-    "files": [
-      "build/test-bundle.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/test-bundle.js"],
+    "require": ["babel-register"]
   }
 }

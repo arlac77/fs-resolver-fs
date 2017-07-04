@@ -1,5 +1,5 @@
 import test from 'ava';
-import FileScheme from '../src/FileScheme';
+import FileScheme from '../src/file-scheme';
 
 const path = require('path'),
   fs = require('fs');
@@ -26,7 +26,10 @@ test('can stat', async t => {
 test('can put', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, 'file2.tmp');
-  await scheme.put('file://' + aFile, fs.createReadStream(path.join(__dirname, '..', 'tests', 'file-test.js')));
+  await scheme.put(
+    'file://' + aFile,
+    fs.createReadStream(path.join(__dirname, '..', 'tests', 'file-test.js'))
+  );
   const stat = await scheme.stat('file://' + aFile);
   t.true(stat.size > 1000 && stat.size < 10000);
 });
@@ -37,9 +40,7 @@ test.cb('can delete', t => {
   fs.writeFileSync(aFile, 'someData');
 
   scheme.delete('file://' + aFile).then(() => {
-    fs.stat(aFile, error =>
-      t.end(error ? undefined : 'not deleted')
-    );
+    fs.stat(aFile, error => t.end(error ? undefined : 'not deleted'));
   });
 
   return undefined;
