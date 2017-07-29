@@ -2,6 +2,7 @@ import { URLScheme } from 'url-resolver-fs';
 
 const fs = require('fs');
 const { promisify } = require('util');
+const { URL } = require('url');
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
@@ -25,15 +26,14 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Creates a readable stream for the content of th file associated to a given file URL
-   * @param {string} url of the a file
-   * @param {object|string} [options] passed as options to fs.createReadStream()
+   * @param url {URL} of the a file
+   * @param [options] {object|string} passed as options to fs.createReadStream()
    * @returns {Promise}
    * @fulfil {ReadableStream} - of the file content
    */
   get(url, options) {
-    const m = url.match(/^file:\/\/(.*)/);
-    if (m) {
-      return Promise.resolve(fs.createReadStream(m[1], options));
+    if (url.protocol === 'file:') {
+      return Promise.resolve(fs.createReadStream(url.pathname, options));
     }
 
     return invalidURLError(url);
@@ -41,8 +41,8 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Read stat of a file assiciated to a given file URL
-   * @param {string} url of the a file
-   * @param {object} [options] unused for now
+   * @param url {URL} of the a file
+   * @param [options] {object} unused for now
    * @returns {Promise}
    * @fulfil {object} - as delivered by fs.stat()
    * @reject {Error} - if url is not a file url or fs.stat() error
@@ -53,18 +53,17 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Put content of a stream to a file associated to a given file URL
-   * @param {string} url of the a file
-   * @param {Stream} stream data source
-   * @param {object|string} [options] passed as options to fs.createWriteStream()
+   * @param url {URL} of the a file
+   * @param stream {Stream} data source
+   * @param [options] {object|string} passed as options to fs.createWriteStream()
    * @returns {Promise}
    * @fulfil {undefined} - undefined
    * @reject {Error} - if url is not a file url
    */
   put(url, stream, options) {
-    const m = url.match(/^file:\/\/(.*)/);
-    if (m) {
+    if (url.protocol === 'file:') {
       return new Promise((fullfill, reject) => {
-        stream.pipe(fs.createWriteStream(m[1], options));
+        stream.pipe(fs.createWriteStream(url.pathname, options));
         stream.once('end', () => fullfill());
       });
     }
@@ -74,7 +73,7 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Deletes the file assiciated to a given file URL
-   * @param {string} url of the a file
+   * @param url {URL} of the a file
    * @returns {Promise}
    * @fulfil {undefined} - undefined
    * @reject {Error} - as delivered by fs.unlink()
@@ -85,7 +84,7 @@ export default class FileScheme extends URLScheme {
 
   /**
    * List content of a directory
-   * @param {string} url of the a directory
+   * @param url {URL} of the a directory
    * @param {object} [options] unused for now
    * @returns {Promise}
    * @fulfil {string[]} - file names
@@ -97,7 +96,7 @@ export default class FileScheme extends URLScheme {
 
   /**
    * List content of a directory
-   * @param {string} url of the a directory
+   * @param url {URL} of the a directory
    * @param {object} [options] unused for now
    * @returns {Iterator}
    */
@@ -110,9 +109,5 @@ export default class FileScheme extends URLScheme {
 }
 
 function url2file(func, url) {
-  const m = url.match(/^file:\/\/(.*)/);
-  if (m) {
-    return func(m[1]);
-  }
-  return invalidURLError(url);
+  return url.protocol === 'file:' ? func(url.pathname) : invalidURLError(url);
 }

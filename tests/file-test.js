@@ -1,6 +1,7 @@
 import test from 'ava';
 import FileScheme from '../src/file-scheme';
 
+const { URL } = require('url');
 const path = require('path'),
   fs = require('fs');
 
@@ -12,14 +13,14 @@ test('file scheme has name', t => {
 test('can get', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, '..', 'tests', 'file-test.js');
-  const content = await scheme.get('file://' + aFile);
+  const content = await scheme.get(new URL('file://' + aFile));
   t.true(content !== undefined);
 });
 
 test('can stat', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, '..', 'tests', 'file-test.js');
-  const stat = await scheme.stat('file://' + aFile);
+  const stat = await scheme.stat(new URL('file://' + aFile));
   t.true(stat.size > 1000 && stat.size < 10000);
 });
 
@@ -27,10 +28,10 @@ test('can put', async t => {
   const scheme = new FileScheme();
   const aFile = path.join(__dirname, 'file2.tmp');
   await scheme.put(
-    'file://' + aFile,
+    new URL('file://' + aFile),
     fs.createReadStream(path.join(__dirname, '..', 'tests', 'file-test.js'))
   );
-  const stat = await scheme.stat('file://' + aFile);
+  const stat = await scheme.stat(new URL('file://' + aFile));
   t.true(stat.size > 1000 && stat.size < 10000);
 });
 
@@ -39,7 +40,7 @@ test.cb('can delete', t => {
   const aFile = path.join(__dirname, 'file.tmp');
   fs.writeFileSync(aFile, 'someData');
 
-  scheme.delete('file://' + aFile).then(() => {
+  scheme.delete(new URL('file://' + aFile)).then(() => {
     fs.stat(aFile, error => t.end(error ? undefined : 'not deleted'));
   });
 
@@ -49,8 +50,7 @@ test.cb('can delete', t => {
 test('can list', async t => {
   const scheme = new FileScheme();
   const aDir = path.join(__dirname);
-  console.log(aDir);
-  const list = await scheme.list('file://' + aDir);
+  const list = await scheme.list(new URL('file://' + aDir));
   t.true(list.includes('test-bundle.js'));
 });
 
@@ -71,9 +71,9 @@ test('can list async iterator', async t => {
 test('list error', async t => {
   function fn() {
     const scheme = new FileScheme();
-    return scheme.list('file://unknown');
+    return scheme.list(new URL('file:///unknown'));
   }
 
   const error = await t.throws(fn());
-  t.is(error.message, `ENOENT: no such file or directory, scandir 'unknown'`);
+  t.is(error.message, `ENOENT: no such file or directory, scandir '/unknown'`);
 });
