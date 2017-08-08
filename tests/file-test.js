@@ -18,6 +18,20 @@ test('can get', async t => {
   t.true(content !== undefined);
 });
 
+test.only('can get archive', async t => {
+  const context = undefined;
+  const scheme = new FileScheme();
+  const aFile = path.join(
+    __dirname,
+    '..',
+    'tests',
+    'fixtures',
+    'archive.tar#a.txt'
+  );
+  const content = await scheme.get(context, new URL('file://' + aFile));
+  t.true(content !== undefined);
+});
+
 test('can stat', async t => {
   const context = undefined;
   const scheme = new FileScheme();
