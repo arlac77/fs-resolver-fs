@@ -18,11 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
   },
-  "keywords": [
-    "url",
-    "resolver",
-    "fs-resolver-fs"
-  ],
+  "keywords": ["url", "resolver", "fs-resolver-fs"],
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/arlac77/fs-resolver-fs/issues"
@@ -42,7 +38,7 @@
     "xo": "^0.19.0"
   },
   "dependencies": {
-    "url-resolver-fs": "^5.0.0"
+    "url-resolver-fs": "^5.2.1"
   },
   "engines": {
     "node": ">=8.2.1"
@@ -54,13 +50,8 @@
     }
   ],
   "nyc": {
-    "include": [
-      "build/test-bundle.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/test-bundle.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "template": {
@@ -73,15 +64,9 @@
   },
   "ava": {
     "babel": {
-      "presets": [
-        "stage-3"
-      ]
+      "presets": ["stage-3"]
     },
-    "files": [
-      "build/test-bundle.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/test-bundle.js"],
+    "require": ["babel-register"]
   }
 }
