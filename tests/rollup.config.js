@@ -1,8 +1,7 @@
 import babel from 'rollup-plugin-babel';
-import multiEntry from 'rollup-plugin-multi-entry';
 
 export default {
-  input: 'tests/**/*-test.js',
+  input: 'tests/file-test.js',
   external: ['ava', 'url-resolver-fs'],
 
   plugins: [
@@ -10,12 +9,11 @@ export default {
       babelrc: false,
       presets: ['stage-3'],
       exclude: 'node_modules/**'
-    }),
-    multiEntry()
+    })
   ],
 
   output: {
-    file: 'build/bundle-test.js',
+    file: 'build/file-test.js',
     format: 'cjs',
     sourcemap: true
   }
