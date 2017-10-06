@@ -18,7 +18,7 @@ test('can get', async t => {
   t.true(content !== undefined);
 });
 
-test.only('can get archive', async t => {
+test('can get archive', async t => {
   const context = undefined;
   const scheme = new FileScheme();
   const aFile = path.join(
@@ -72,7 +72,7 @@ test('can list', async t => {
   const scheme = new FileScheme();
   const aDir = path.join(__dirname);
   const list = await scheme.list(context, new URL('file://' + aDir));
-  t.true(list.includes('test-bundle.js'));
+  t.true(list.includes('file-test.js'));
 });
 
 /*
