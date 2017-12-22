@@ -26,11 +26,10 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Creates a readable stream for the content of th file associated to a given file URL
-   * @param context {Context} execution context
-   * @param url {URL} of the a file
-   * @param [options] {object|string} passed as options to fs.createReadStream()
-   * @returns {Promise}
-   * @fulfil {ReadableStream} - of the file content
+   * @param {Context} context execution context
+   * @param {URL} url of the a file
+   * @param {Object|string} options passed as options to fs.createReadStream()
+   * @returns {ReadableStream} of the file content
    */
   get(context, url, options) {
     if (url.protocol === 'file:') {
@@ -42,12 +41,10 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Read stat of a file assiciated to a given file URL
-   * @param context {Context} execution context
-   * @param url {URL} of the a file
-   * @param [options] {object} unused for now
-   * @returns {Promise}
-   * @fulfil {object} - as delivered by fs.stat()
-   * @reject {Error} - if url is not a file url or fs.stat() error
+   * @param {Context} context execution context
+   * @param {URL} url of the a file
+   * @param {Object} options unused for now
+   * @returns {Object|Error} as delivered by fs.stat()
    */
   stat(context, url, options) {
     return url2file(_stat, url);
@@ -58,10 +55,8 @@ export default class FileScheme extends URLScheme {
    * @param context {Context} execution context
    * @param url {URL} of the a file
    * @param stream {Stream} data source
-   * @param [options] {object|string} passed as options to fs.createWriteStream()
-   * @returns {Promise}
-   * @fulfil {undefined} - undefined
-   * @reject {Error} - if url is not a file url
+   * @param {Object|string} options passed as options to fs.createWriteStream()
+   * @returns {undefined|Error} if url is not a file url
    */
   put(context, url, stream, options) {
     if (url.protocol === 'file:') {
@@ -76,11 +71,9 @@ export default class FileScheme extends URLScheme {
 
   /**
    * Deletes the file assiciated to a given file URL
-   * @param context {Context} execution context
-   * @param url {URL} of the a file
-   * @returns {Promise}
-   * @fulfil {undefined} - undefined
-   * @reject {Error} - as delivered by fs.unlink()
+   * @param {Context} context execution context
+   * @param {URL} url of the a file
+   * @returns {Object|Error} as delivered by fs.unlink()
    */
   delete(context, url) {
     return url2file(_unlink, url);
@@ -88,12 +81,11 @@ export default class FileScheme extends URLScheme {
 
   /**
    * List content of a directory
-   * @param context {Context} execution context
-   * @param url {URL} of the a directory
-   * @param {object} [options] unused for now
+   * @param {Context} context execution context
+   * @param {URL} url of the a directory
+   * @param {Object} options unused for now
    * @returns {Promise}
-   * @fulfil {string[]} - file names
-   * @reject {Error} - as delivered by fs.readdir()
+   * @returns {Object|Error} as delivered by fs.readdir()
    */
   list(context, url, options) {
     return url2file(_readdir, url);
@@ -101,9 +93,9 @@ export default class FileScheme extends URLScheme {
 
   /**
    * List content of a directory
-   * @param context {Context} execution context
-   * @param url {URL} of the a directory
-   * @param {object} [options] unused for now
+   * @param {Context} context execution context
+   * @param {URL} url of the a directory
+   * @param {Object} options unused for now
    * @returns {Iterator}
    */
   async *_list(context, url, options) {
