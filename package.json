@@ -1,9 +1,21 @@
 {
   "name": "fs-resolver-fs",
   "version": "0.0.0-semantic-release",
-  "description": "resolves file urls",
   "main": "dist/file-scheme.js",
   "module": "src/file-scheme.js",
+  "description": "resolves file urls",
+  "keywords": [
+    "url",
+    "resolver",
+    "fs-resolver-fs"
+  ],
+  "contributors": [
+    {
+      "name": "Markus Felten",
+      "email": "markus.felten@gmx.de"
+    }
+  ],
+  "license": "BSD-2-Clause",
   "scripts": {
     "cover": "nyc --temp-directory build/nyc ava",
     "test": "ava",
@@ -15,20 +27,9 @@
     "prepare": "rollup -c",
     "lint": "documentation lint src/file-scheme.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
+  "dependencies": {
+    "url-resolver-fs": "^5.2.3"
   },
-  "keywords": [
-    "url",
-    "resolver",
-    "fs-resolver-fs"
-  ],
-  "license": "BSD-2-Clause",
-  "bugs": {
-    "url": "https://github.com/arlac77/fs-resolver-fs/issues"
-  },
-  "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "devDependencies": {
     "ava": "^0.24.0",
     "markdown-doctest": "^0.9.1",
@@ -39,36 +40,17 @@
     "xo": "^0.19.0",
     "documentation": "^5.3.5"
   },
-  "dependencies": {
-    "url-resolver-fs": "^5.2.3"
-  },
   "engines": {
     "node": ">=8.9.3"
   },
-  "contributors": [
-    {
-      "name": "Markus Felten",
-      "email": "markus.felten@gmx.de"
-    }
-  ],
-  "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
-    "report-dir": "./build/coverage"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
   },
-  "template": {
-    "repository": {
-      "url": "https://github.com/arlac77/npm-package-template.git"
-    }
+  "bugs": {
+    "url": "https://github.com/arlac77/fs-resolver-fs/issues"
   },
-  "xo": {
-    "space": true
-  },
+  "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "ava": {
     "babel": {
       "presets": [
@@ -81,5 +63,23 @@
     "require": [
       "babel-register"
     ]
+  },
+  "nyc": {
+    "include": [
+      "build/*-test.js",
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "report-dir": "./build/coverage"
+  },
+  "xo": {
+    "space": true
+  },
+  "template": {
+    "repository": {
+      "url": "https://github.com/arlac77/npm-package-template.git"
+    }
   }
 }
