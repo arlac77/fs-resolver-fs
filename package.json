@@ -29,7 +29,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "url-resolver-fs": "^5.2.3"
+    "url-resolver-fs": "^5.2.5"
   },
   "devDependencies": {
     "ava": "^0.25.0",
