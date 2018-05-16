@@ -1,21 +1,20 @@
+import { stat, unlink, readdir, createReadStream, createWriteStream } from 'fs';
 import { URLScheme } from 'url-resolver-fs';
-
-const fs = require('fs');
-const { promisify } = require('util');
-const { URL } = require('url');
+import { promisify } from 'util';
+import { URL } from 'url';
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
 }
 
-const _stat = promisify(fs.stat);
-const _unlink = promisify(fs.unlink);
-const _readdir = promisify(fs.readdir);
+const _stat = promisify(stat);
+const _unlink = promisify(unlink);
+const _readdir = promisify(readdir);
 
 /**
  * URLScheme for file system access
  */
-export default class FileScheme extends URLScheme {
+export class FileScheme extends URLScheme {
   /**
    * Scheme name if 'file'
    * @return {string} 'file'
@@ -33,7 +32,7 @@ export default class FileScheme extends URLScheme {
    */
   get(context, url, options) {
     if (url.protocol === 'file:') {
-      return Promise.resolve(fs.createReadStream(url.pathname, options));
+      return Promise.resolve(createReadStream(url.pathname, options));
     }
 
     return invalidURLError(url);
@@ -61,7 +60,7 @@ export default class FileScheme extends URLScheme {
   put(context, url, stream, options) {
     if (url.protocol === 'file:') {
       return new Promise((fullfill, reject) => {
-        stream.pipe(fs.createWriteStream(url.pathname, options));
+        stream.pipe(createWriteStream(url.pathname, options));
         stream.once('end', () => fullfill());
       });
     }

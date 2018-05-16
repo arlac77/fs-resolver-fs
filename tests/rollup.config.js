@@ -2,7 +2,7 @@ import babel from 'rollup-plugin-babel';
 
 export default {
   input: 'tests/file-test.js',
-  external: ['ava', 'url-resolver-fs'],
+  external: ['ava', 'url-resolver-fs', 'fs', 'path', 'util', 'url'],
 
   plugins: [
     babel({
