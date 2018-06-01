@@ -1,8 +1,9 @@
 import test from 'ava';
 import { FileScheme } from '../src/file-scheme';
-import { createReadStream, writeFileSync, stat } from 'fs';
+import { createReadStream, writeFileSync } from 'fs';
 import { join } from 'path';
 import { URL } from 'url';
+const { stat } = require('fs').promises;
 
 test('file scheme has name', t => {
   const scheme = new FileScheme();
@@ -47,17 +48,19 @@ test('can put', async t => {
   t.true(stat.size > 1000 && stat.size < 10000);
 });
 
-test.cb('can delete', t => {
+test('can delete', async t => {
   const context = undefined;
   const scheme = new FileScheme();
   const aFile = join(__dirname, 'file.tmp');
   writeFileSync(aFile, 'someData');
 
-  scheme.delete(context, new URL('file://' + aFile)).then(() => {
-    stat(aFile, error => t.end(error ? undefined : 'not deleted'));
-  });
+  await scheme.delete(context, new URL('file://' + aFile));
 
-  return undefined;
+  try {
+    await stat(aFile);
+  } catch (e) {
+    t.is(e.code, 'ENOENT');
+  }
 });
 
 test('can list', async t => {

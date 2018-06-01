@@ -1,20 +1,15 @@
-import babel from 'rollup-plugin-babel';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
 
 export default {
-  plugins: [
-    babel({
-      babelrc: false,
-      presets: ['stage-3'],
-      exclude: 'node_modules/**'
-    })
-  ],
+  plugins: [resolve(), commonjs()],
 
   output: {
     file: pkg.main,
     format: 'cjs'
   },
 
-  external: ['url-resolver-fs', 'fs', 'util', 'url'],
+  external: ['url-resolver-fs', 'util', 'url'],
   input: pkg.module
 };

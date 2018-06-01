@@ -1,15 +1,12 @@
-import { stat, unlink, readdir, createReadStream, createWriteStream } from 'fs';
 import { URLScheme } from 'url-resolver-fs';
-import { promisify } from 'util';
 import { URL } from 'url';
+
+const { stat, unlink, readdir } = require('fs').promises;
+const { createReadStream, createWriteStream } = require('fs');
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
 }
-
-const _stat = promisify(stat);
-const _unlink = promisify(unlink);
-const _readdir = promisify(readdir);
 
 /**
  * URLScheme for file system access
@@ -46,7 +43,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.stat()
    */
   stat(context, url, options) {
-    return url2file(_stat, url);
+    return url2file(stat, url);
   }
 
   /**
@@ -75,7 +72,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.unlink()
    */
   delete(context, url) {
-    return url2file(_unlink, url);
+    return url2file(unlink, url);
   }
 
   /**
@@ -87,7 +84,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.readdir()
    */
   list(context, url, options) {
-    return url2file(_readdir, url);
+    return url2file(readdir, url);
   }
 
   /**
@@ -98,7 +95,7 @@ export class FileScheme extends URLScheme {
    * @returns {Iterator}
    */
   async *_list(context, url, options) {
-    const list = await url2file(_readdir, url);
+    const list = await url2file(readdir, url);
     for (const entry of list) {
       yield entry;
     }

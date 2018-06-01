@@ -1,20 +1,26 @@
-import babel from 'rollup-plugin-babel';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+import multiEntry from 'rollup-plugin-multi-entry';
 
 export default {
-  input: 'tests/file-test.js',
-  external: ['ava', 'url-resolver-fs', 'fs', 'path', 'util', 'url'],
-
-  plugins: [
-    babel({
-      babelrc: false,
-      presets: ['stage-3'],
-      exclude: 'node_modules/**'
-    })
-  ],
-
+  input: 'tests/**/*-test.js',
   output: {
-    file: 'build/file-test.js',
+    file: 'build/bundle-test.js',
     format: 'cjs',
     sourcemap: true
-  }
+  },
+  external: [
+    'ava',
+    'fs',
+    'path',
+    'url',
+    'os',
+    'net',
+    'tls',
+    'util',
+    'events',
+    'https',
+    'tty'
+  ],
+  plugins: [multiEntry(), resolve(), commonjs()]
 };
