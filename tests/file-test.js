@@ -68,7 +68,7 @@ test('can list', async t => {
   const scheme = new FileScheme();
   const aDir = join(__dirname);
   const list = await scheme.list(context, new URL('file://' + aDir));
-  t.true(list.includes('file-test.js'));
+  t.true(list.includes('bundle-test.js'));
 });
 
 /*
