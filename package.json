@@ -1,6 +1,9 @@
 {
   "name": "fs-resolver-fs",
   "version": "0.0.0-semantic-release",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/file-scheme.js",
   "module": "src/file-scheme.js",
   "description": "resolves file urls",
