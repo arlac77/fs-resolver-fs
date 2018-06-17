@@ -10,6 +10,6 @@ export default {
     format: 'cjs'
   },
 
-  external: ['url-resolver-fs', 'util', 'url'],
+  external: ['url-resolver-fs', 'util', 'url', 'fs'],
   input: pkg.module
 };

@@ -1,8 +1,7 @@
 import { URLScheme } from 'url-resolver-fs';
 import { URL } from 'url';
-
+import { createReadStream, createWriteStream } from 'fs';
 const { stat, unlink, readdir } = require('fs').promises;
-const { createReadStream, createWriteStream } = require('fs');
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
