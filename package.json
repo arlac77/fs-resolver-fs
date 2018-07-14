@@ -7,11 +7,7 @@
   "main": "dist/file-scheme.js",
   "module": "src/file-scheme.js",
   "description": "resolves file urls",
-  "keywords": [
-    "url",
-    "resolver",
-    "fs-resolver-fs"
-  ],
+  "keywords": ["url", "resolver", "fs-resolver-fs"],
   "contributors": [
     {
       "name": "Markus Felten",
@@ -59,25 +55,14 @@
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "ava": {
     "babel": {
-      "presets": [
-        "stage-3"
-      ]
+      "presets": ["stage-3"]
     },
-    "files": [
-      "build/*-test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "files": ["build/*-test.js"],
+    "require": ["babel-register"]
   },
   "nyc": {
-    "include": [
-      "build/*-test.js",
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov"
-    ],
+    "include": ["build/*-test.js", "src/**/*.js"],
+    "reporter": ["lcov"],
     "report-dir": "./build/coverage"
   },
   "xo": {
