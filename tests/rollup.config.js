@@ -1,3 +1,6 @@
+import istanbul from 'rollup-plugin-istanbul';
+
+import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import multiEntry from 'rollup-plugin-multi-entry';
@@ -23,5 +26,11 @@ export default {
     'https',
     'tty'
   ],
-  plugins: [multiEntry(), resolve(), commonjs()]
+  plugins: [multiEntry(), resolve(), commonjs(), istanbul({
+    exclude: ['tests/**/*-test.js']
+  }), babel({
+    babelrc: false,
+    presets: ['env'],
+    exclude: 'node_modules/**'
+  })]
 };
