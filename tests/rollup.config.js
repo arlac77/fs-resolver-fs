@@ -27,12 +27,8 @@ export default {
     'stream',
     'tty'
   ],
-  plugins: [
-    multiEntry(),
-    resolve(),
-    commonjs()
-    //istanbul({
-    //  exclude: ['tests/**/*-test.js']
-    //})
-  ]
+  plugins: [multiEntry(), resolve(),
+  commonjs() /*, istanbul({
+    exclude: ['tests/**/*-test.js', 'node_modules/**/*']
+  })*/]
 };
