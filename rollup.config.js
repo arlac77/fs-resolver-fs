@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
 
 export default {
-  plugins: [resolve(), commonjs()],
+  plugins: [resolve(), commonjs(), cleanup()],
 
   output: {
     file: pkg.main,
