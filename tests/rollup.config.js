@@ -1,3 +1,5 @@
+import istanbul from 'rollup-plugin-istanbul';
+
 //import istanbul from 'rollup-plugin-istanbul';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
@@ -27,12 +29,10 @@ export default {
     'stream',
     'tty'
   ],
-  plugins: [
-    multiEntry(),
-    resolve(),
-    commonjs()
-    //,  istanbul({
-    //    exclude: ['tests/**/*-test.js', 'node_modules/**/*']
-    //  })
-  ]
+  plugins: [multiEntry(), resolve(), //,  istanbul({
+  //    exclude: ['tests/**/*-test.js', 'node_modules/**/*']
+  //  })
+  commonjs(), istanbul({
+    exclude: ['tests/**/*-test.js', 'node_modules/**/*']
+  })]
 };
