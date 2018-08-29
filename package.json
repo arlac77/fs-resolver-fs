@@ -35,7 +35,7 @@
     "url-resolver-fs": "^7.2.2"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.0.0-beta.8",
     "documentation": "^8.1.1",
     "markdown-doctest": "^0.9.1",
     "nyc": "^13.0.1",
@@ -62,9 +62,9 @@
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "ava": {
     "babel": {
-      "presets": [
-        "stage-3"
-      ]
+      "testOptions": {
+        "presets": []
+      }
     },
     "files": [
       "build/*-test.js"
