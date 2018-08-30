@@ -1,7 +1,6 @@
-import { URLScheme } from 'url-resolver-fs';
-import { URL } from 'url';
-import { createReadStream, createWriteStream } from 'fs';
-const { stat, unlink, readdir } = require('fs').promises;
+import { URLScheme } from "url-resolver-fs";
+import { createReadStream, createWriteStream } from "fs";
+const { stat, unlink, readdir } = require("fs").promises;
 
 function invalidURLError(url) {
   Promise.reject(new Error(`Invalid file url: ${url}`));
@@ -16,7 +15,7 @@ export class FileScheme extends URLScheme {
    * @return {string} 'file'
    */
   static get name() {
-    return 'file';
+    return "file";
   }
 
   /**
@@ -27,7 +26,7 @@ export class FileScheme extends URLScheme {
    * @returns {ReadableStream} of the file content
    */
   get(context, url, options) {
-    if (url.protocol === 'file:') {
+    if (url.protocol === "file:") {
       return Promise.resolve(createReadStream(url.pathname, options));
     }
 
@@ -54,10 +53,10 @@ export class FileScheme extends URLScheme {
    * @returns {undefined|Error} if url is not a file url
    */
   put(context, url, stream, options) {
-    if (url.protocol === 'file:') {
+    if (url.protocol === "file:") {
       return new Promise((fullfill, reject) => {
         stream.pipe(createWriteStream(url.pathname, options));
-        stream.once('end', () => fullfill());
+        stream.once("end", () => fullfill());
       });
     }
 
@@ -102,5 +101,5 @@ export class FileScheme extends URLScheme {
 }
 
 function url2file(func, url) {
-  return url.protocol === 'file:' ? func(url.pathname) : invalidURLError(url);
+  return url.protocol === "file:" ? func(url.pathname) : invalidURLError(url);
 }
