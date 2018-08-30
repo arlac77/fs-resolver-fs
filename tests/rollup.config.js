@@ -27,20 +27,16 @@ export default {
     "stream",
     "tty"
   ],
-  plugins: [
-    multiEntry(),
-    resolve(),
-    commonjs(),
-    babel({
-      runtimeHelpers: false,
-      externalHelpers: true,
-      babelrc: false,
-      plugins: ["@babel/plugin-proposal-async-generator-functions"]
-    })
-
-    //,
-    //    istanbul({
-    //      exclude: ["tests/**/*-test.js", "node_modules/**/*"]
-    //    })
-  ]
+  plugins: [multiEntry(), resolve(), commonjs(), //,
+  //    istanbul({
+  //      exclude: ["tests/**/*-test.js", "node_modules/**/*"]
+  //    })
+  babel({
+    runtimeHelpers: false,
+    externalHelpers: true,
+    babelrc: false,
+    plugins: ["@babel/plugin-proposal-async-generator-functions"]
+  }), istanbul({
+    exclude: ['tests/**/*-test.js', 'node_modules/**/*']
+  })]
 };
