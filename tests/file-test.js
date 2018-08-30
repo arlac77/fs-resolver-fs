@@ -87,12 +87,14 @@ const context = undefined;
 */
 
 test("list error", async t => {
-  function fn() {
+  async function fn() {
     const context = undefined;
     const scheme = new FileScheme();
     return scheme.list(context, new URL("file:///unknown"));
   }
 
-  const error = await t.throws(fn());
-  t.is(error.message, `ENOENT: no such file or directory, scandir '/unknown'`);
+  const error = await t.throwsAsync(fn(), {
+    code: "ENOENT",
+    message: `ENOENT: no such file or directory, scandir '/unknown'`
+  });
 });
