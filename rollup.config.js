@@ -25,6 +25,6 @@ export default {
     interop: false
   },
 
-  external: ["url-resolver-fs", "util", "fs"],
+  external: ["url-resolver-fs", "util", "fs", "url"],
   input: pkg.module
 };
