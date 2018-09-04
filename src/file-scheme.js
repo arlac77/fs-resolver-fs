@@ -2,10 +2,6 @@ import { URLScheme } from "url-resolver-fs";
 import { createReadStream, createWriteStream } from "fs";
 const { stat, unlink, readdir } = require("fs").promises;
 
-function invalidURLError(url) {
-  Promise.reject(new Error(`Invalid file url: ${url}`));
-}
-
 /**
  * URLScheme for file system access
  */
@@ -26,11 +22,7 @@ export class FileScheme extends URLScheme {
    * @returns {ReadableStream} of the file content
    */
   get(context, url, options) {
-    if (url.protocol === "file:") {
-      return Promise.resolve(createReadStream(url.pathname, options));
-    }
-
-    return invalidURLError(url);
+    return Promise.resolve(createReadStream(url, options));
   }
 
   /**
@@ -41,7 +33,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.stat()
    */
   stat(context, url, options) {
-    return url2file(stat, url);
+    return stat(url);
   }
 
   /**
@@ -53,14 +45,10 @@ export class FileScheme extends URLScheme {
    * @returns {undefined|Error} if url is not a file url
    */
   put(context, url, stream, options) {
-    if (url.protocol === "file:") {
-      return new Promise((fullfill, reject) => {
-        stream.pipe(createWriteStream(url.pathname, options));
-        stream.once("end", () => fullfill());
-      });
-    }
-
-    return invalidURLError(url);
+    return new Promise((resolve, reject) => {
+      stream.pipe(createWriteStream(url, options));
+      stream.once("end", () => resolve());
+    });
   }
 
   /**
@@ -70,7 +58,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.unlink()
    */
   delete(context, url) {
-    return url2file(unlink, url);
+    return unlink(url);
   }
 
   /**
@@ -82,7 +70,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.readdir()
    */
   list(context, url, options) {
-    return url2file(readdir, url);
+    return readdir(url);
   }
 
   /**
@@ -93,13 +81,9 @@ export class FileScheme extends URLScheme {
    * @returns {Iterator}
    */
   async *_list(context, url, options) {
-    const list = await url2file(readdir, url);
+    const list = await readdir(url);
     for (const entry of list) {
       yield entry;
     }
   }
-}
-
-function url2file(func, url) {
-  return url.protocol === "file:" ? func(url.pathname) : invalidURLError(url);
 }
