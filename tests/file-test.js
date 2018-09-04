@@ -70,21 +70,25 @@ test("can list", async t => {
   t.true(list.includes("bundle-test.js"));
 });
 
-/*
-test('can list async iterator', async t => {
-const context = undefined;
+test("can list async iterator", async t => {
+  const context = undefined;
 
   const scheme = new FileScheme();
   const aDir = join(__dirname);
-  const list = scheme._list(context, 'file://' + aDir);
+  const list = scheme._list(context, new URL("file://" + aDir));
 
-  console.log(list);
+  const entries = new Set();
 
   for await (const entry of list) {
-    t.deepEqual(entry, 'bundle.js');
+    entries.add(entry);
   }
+
+  t.deepEqual(Array.from(entries), [
+    "bundle-test.js",
+    "bundle-test.js.map",
+    "file2.tmp"
+  ]);
 });
-*/
 
 test("list error", async t => {
   async function fn() {
