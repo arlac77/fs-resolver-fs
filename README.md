@@ -36,8 +36,6 @@ resolves file urls
         -   [Parameters](#parameters-3)
     -   [list](#list)
         -   [Parameters](#parameters-4)
-    -   [\_list](#_list)
-        -   [Parameters](#parameters-5)
     -   [name](#name)
 
 ## FileScheme
@@ -95,20 +93,6 @@ Deletes the file assiciated to a given file URL
 Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error))** as delivered by fs.unlink()
 
 ### list
-
-List content of a directory
-
-#### Parameters
-
--   `context` **Context** execution context
--   `url` **[URL](https://developer.mozilla.org/docs/Web/API/URL/URL)** of the a directory
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** unused for now
-
-Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
-
-Returns **([Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error))** as delivered by fs.readdir()
-
-### \_list
 
 List content of a directory
 

@@ -66,23 +66,10 @@ export class FileScheme extends URLScheme {
    * @param {Context} context execution context
    * @param {URL} url of the a directory
    * @param {Object} options unused for now
-   * @returns {Promise}
-   * @returns {Object|Error} as delivered by fs.readdir()
-   */
-  list(context, url, options) {
-    return readdir(url);
-  }
-
-  /**
-   * List content of a directory
-   * @param {Context} context execution context
-   * @param {URL} url of the a directory
-   * @param {Object} options unused for now
    * @returns {Iterator}
    */
-  async *_list(context, url, options) {
-    const list = await readdir(url);
-    for (const entry of list) {
+  async *list(context, url, options) {
+    for (const entry of await readdir(url)) {
       yield entry;
     }
   }

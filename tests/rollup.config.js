@@ -31,10 +31,7 @@ export default {
   plugins: [
     multiEntry(),
     resolve(),
-    commonjs(), //,
-    //    istanbul({
-    //      exclude: ["tests/**/*-test.js", "node_modules/**/*"]
-    //    })
+    commonjs(),
     babel({
       runtimeHelpers: false,
       externalHelpers: true,
