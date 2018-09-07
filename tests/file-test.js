@@ -72,15 +72,15 @@ test.skip("can list", async t => {
 
 test("can list async iterator", async t => {
   const context = undefined;
-
   const scheme = new FileScheme();
-  const aDir = join(__dirname);
-  const list = scheme.list(context, new URL("file://" + aDir));
+  const list = scheme.list(context, new URL("file://" + __dirname));
 
   const entries = new Set();
 
   for await (const entry of list) {
-    entries.add(entry);
+    if (entry !== "nyc") {
+      entries.add(entry);
+    }
   }
 
   t.deepEqual(Array.from(entries), [
