@@ -21,8 +21,8 @@ export class FileScheme extends URLScheme {
    * @param {Object|string} options passed as options to fs.createReadStream()
    * @returns {ReadableStream} of the file content
    */
-  get(context, url, options) {
-    return Promise.resolve(createReadStream(url, options));
+  async get(context, url, options) {
+    return createReadStream(url, options);
   }
 
   /**
