@@ -32,7 +32,7 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "dependencies": {
-    "url-resolver-fs": "^7.3.5"
+    "url-resolver-fs": "^7.3.6"
   },
   "devDependencies": {
     "@babel/plugin-proposal-async-generator-functions": "^7.1.0",
