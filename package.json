@@ -60,20 +60,14 @@
   },
   "homepage": "https://github.com/arlac77/fs-resolver-fs#readme",
   "ava": {
-    "babel": {
-      "testOptions": {
-        "presets": []
-      }
-    },
+    "babel": false,
     "files": [
-      "build/*-test.js"
+      "tests/*-test.js"
     ],
     "require": [
-      "babel-register"
-    ]
-  },
-  "xo": {
-    "space": true
+      "esm"
+    ],
+    "compileEnhancements": false
   },
   "template": {
     "repository": {
