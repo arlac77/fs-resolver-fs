@@ -8,13 +8,6 @@ import pkg from "./package.json";
 
 export default {
   plugins: [
-    babel({
-      runtimeHelpers: false,
-      externalHelpers: true,
-      babelrc: false,
-      plugins: ["@babel/plugin-proposal-async-generator-functions"],
-      exclude: "node_modules/**"
-    }),
     resolve(),
     commonjs(),
     cleanup()
