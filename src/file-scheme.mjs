@@ -1,6 +1,5 @@
 import { URLScheme } from "url-resolver-fs";
-import { createReadStream, createWriteStream } from "fs";
-const { stat, unlink, readdir } = require("fs").promises;
+import fs, { createReadStream, createWriteStream } from "fs";
 
 /**
  * URLScheme for file system access
@@ -33,7 +32,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.stat()
    */
   stat(context, url, options) {
-    return stat(url);
+    return fs.promises.stat(url);
   }
 
   /**
@@ -58,7 +57,7 @@ export class FileScheme extends URLScheme {
    * @returns {Object|Error} as delivered by fs.unlink()
    */
   delete(context, url) {
-    return unlink(url);
+    return fs.promises.unlink(url);
   }
 
   /**
@@ -69,7 +68,7 @@ export class FileScheme extends URLScheme {
    * @returns {Iterator}
    */
   async *list(context, url, options) {
-    for (const entry of await readdir(url)) {
+    for (const entry of await fs.promises.readdir(url)) {
       yield entry;
     }
   }

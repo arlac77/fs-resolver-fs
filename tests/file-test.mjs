@@ -1,8 +1,10 @@
 import test from "ava";
 import { FileScheme } from "../src/file-scheme";
-import { createReadStream, writeFileSync } from "fs";
-import { join } from "path";
-const { stat } = require("fs").promises;
+import fs, { createReadStream, writeFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const here = dirname(fileURLToPath(import.meta.url));
 
 test("file scheme has name", t => {
   const scheme = new FileScheme();
@@ -12,7 +14,7 @@ test("file scheme has name", t => {
 test("can get", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const aFile = join(__dirname, "..", "tests", "file-test.js");
+  const aFile = join(here, "..", "tests", "file-test.mjs");
   const content = await scheme.get(context, new URL("file://" + aFile));
   t.true(content !== undefined);
 });
@@ -20,7 +22,7 @@ test("can get", async t => {
 test("can get archive", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const aFile = join(__dirname, "..", "tests", "fixtures", "archive.tar#a.txt");
+  const aFile = join(here, "..", "tests", "fixtures", "archive.tar#a.txt");
   const content = await scheme.get(context, new URL("file://" + aFile));
   t.true(content !== undefined);
 });
@@ -28,7 +30,7 @@ test("can get archive", async t => {
 test("can stat", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const aFile = join(__dirname, "..", "tests", "file-test.js");
+  const aFile = join(here, "..", "tests", "file-test.mjs");
   const stat = await scheme.stat(context, new URL("file://" + aFile));
   t.true(stat.size > 1000 && stat.size < 10000);
 });
@@ -37,11 +39,11 @@ test("can put", async t => {
   const context = undefined;
 
   const scheme = new FileScheme();
-  const aFile = join(__dirname, "file2.tmp");
+  const aFile = join(here, "file2.tmp");
   await scheme.put(
     context,
     new URL("file://" + aFile),
-    createReadStream(join(__dirname, "..", "tests", "file-test.js"))
+    createReadStream(join(here, "..", "tests", "file-test.mjs"))
   );
   const stat = await scheme.stat(context, new URL("file://" + aFile));
   t.true(stat.size > 1000 && stat.size < 10000);
@@ -50,44 +52,41 @@ test("can put", async t => {
 test("can delete", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const aFile = join(__dirname, "file.tmp");
+  const aFile = join(here, "file.tmp");
   writeFileSync(aFile, "someData");
 
   await scheme.delete(context, new URL("file://" + aFile));
 
   try {
-    await stat(aFile);
+    await fs.promises.stat(aFile);
   } catch (e) {
     t.is(e.code, "ENOENT");
   }
 });
 
-test.skip("can list", async t => {
+test("can list", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const aDir = join(__dirname);
-  const list = await scheme.list(context, new URL("file://" + aDir));
-  t.true(list.includes("bundle-test.js"));
+  const list = [];
+  for await (const entry of scheme.list(context, new URL("file://" + here))) {
+    list.push(entry);
+  }
+
+  t.true(list.includes("file-test.mjs"));
 });
 
 test("can list async iterator", async t => {
   const context = undefined;
   const scheme = new FileScheme();
-  const list = scheme.list(context, new URL("file://" + __dirname));
+  const list = scheme.list(context, new URL("file://" + here));
 
   const entries = new Set();
 
   for await (const entry of list) {
-    if (entry !== "nyc") {
-      entries.add(entry);
-    }
+    entries.add(entry);
   }
 
-  t.deepEqual(Array.from(entries), [
-    "bundle-test.js",
-    "bundle-test.js.map",
-    "file2.tmp"
-  ]);
+  t.deepEqual(Array.from(entries), ["file-test.mjs", "file2.tmp", "fixtures"]);
 });
 
 test("list error", async t => {

@@ -4,8 +4,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/file-scheme.js",
-  "module": "src/file-scheme.js",
+  "main": "src/file-scheme.mjs",
+  "module": "src/file-scheme.mjs",
   "description": "resolves file urls",
   "keywords": [
     "url",
@@ -21,13 +21,13 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "cover": "c8 --temp-directory build/coverage ava && c8 report -r lcov --temp-directory build/coverage",
-    "docs": "documentation readme src/file-scheme.js --section=API",
-    "lint": "documentation lint src/file-scheme.js",
-    "posttest": "markdown-doctest && npm run prepare",
+    "docs": "documentation readme src/file-scheme.mjs --section=API",
+    "lint": "documentation lint src/file-scheme.mjs",
+    "posttest": "markdown-doctest",
     "test": "ava"
   },
   "dependencies": {
-    "url-resolver-fs": "^7.3.6"
+    "url-resolver-fs": "^8.0.0"
   },
   "devDependencies": {
     "ava": "^1.2.1",
