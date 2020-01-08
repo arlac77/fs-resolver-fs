@@ -26,7 +26,8 @@
     "docs": "documentation readme src/file-scheme.mjs --section=API",
     "lint": "documentation lint src/file-scheme.mjs",
     "posttest": "markdown-doctest",
-    "test": "ava"
+    "test": "ava",
+    "prepare": "rollup -c"
   },
   "dependencies": {
     "url-resolver-fs": "^8.0.0"
