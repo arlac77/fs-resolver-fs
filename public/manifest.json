@@ -1,0 +1,10 @@
+{
+  "name": "fs-resolver-fs",
+  "description": "resolves file urls",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}
