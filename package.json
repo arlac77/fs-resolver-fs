@@ -8,8 +8,7 @@
   "type": "module",
   "main": "./src/file-scheme.mjs",
   "exports": {
-    ".": "./src/file-scheme.mjs",
-    "./": "./"
+    ".": "./src/file-scheme.mjs"
   },
   "description": "resolves file urls",
   "keywords": [
