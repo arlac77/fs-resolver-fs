@@ -5,8 +5,6 @@
     "access": "public"
   },
   "sideEffects": false,
-  "type": "module",
-  "main": "./src/file-scheme.mjs",
   "exports": {
     ".": "./src/file-scheme.mjs"
   },
