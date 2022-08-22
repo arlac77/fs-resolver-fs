@@ -96,7 +96,7 @@ List content of a directory
 *   `url` **[URL](https://developer.mozilla.org/docs/Web/API/URL/URL)** of the a directory
 *   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** unused for now
 
-Returns **Iterator** 
+Returns **Iterator**&#x20;
 
 ### name
 
