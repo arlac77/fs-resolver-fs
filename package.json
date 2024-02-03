@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/arlac77/fs-resolver-fs"
+    "url": "git+https://github.com/arlac77/fs-resolver-fs.git"
   },
   "bugs": {
     "url": "https://github.com/arlac77/fs-resolver-fs/issues"
